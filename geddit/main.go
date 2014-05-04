@@ -2,14 +2,16 @@ package main
 
 import (
     "encoding/json"
+    "errors"
     "fmt"
     "log"
     "net/http"
 )
 
 type Item struct {
-    Title string
-    URL   string
+    Title    string
+    URL      string
+    Comments int `json:"num_comments"`
 }
 
 type Response struct {
@@ -18,6 +20,19 @@ type Response struct {
             Data Item
         }
     }
+}
+
+func (i Item) String() string {
+    com := ""
+    switch i.Comments {
+    case 0:
+        // nothing
+    case 1:
+        com = " (1 comment)"
+    default:
+        com = fmt.Sprintf(" (%d comments)", i.Comments)
+    }
+    return fmt.Sprintf("%s%s\n%s", i.Title, com, i.URL)
 }
 
 func Get(reddit string) ([]Item, error) {
