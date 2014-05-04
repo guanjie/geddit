@@ -44,25 +44,10 @@ func Get(reddit string) ([]Item, error) {
 
 func main() {
     items, err := Get("golang")
-    //resp, err := http.Get("http://reddit.com/r/golang.json")
     if err != nil {
         log.Fatal(err)
     }
     for _, item := range items {
         fmt.Println(item.Title)
     }
-
-    //if resp.StatusCode != http.StatusOK {
-    //    log.Fatal(resp.Status)
-    //}
-    ////    _, err = io.Copy(os.Stdout, resp.Body)
-    //r := new(Response)
-    //err = json.NewDecoder(resp.Body).Decode(r)
-    //for _, child := range r.Data.Children {
-    //    fmt.Println(child.Data.Title)
-    //}
-
-    //if err != nil {
-    //    log.Fatal(err)
-    //}
 }
